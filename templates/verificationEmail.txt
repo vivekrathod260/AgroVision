@@ -1,0 +1,2 @@
+Hi visit the link to verifiy your account
+https://agrovision.herokuapp.com/verify/{{auth_token}}

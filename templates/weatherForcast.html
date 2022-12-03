@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Weather Forcast | Agrovision</title>
+
+	<meta name="description" content="AgroVision is a cloud-based platform which provide satellite data to help you analyze fields and observe plant health it also help you to detect plant disease and guide you to cure it" />
+	<meta name="keywords" content="remote sensing project,NDVI,NDMI,index,Plant disease detect,Plant disease, image processing project">
+	<meta name="DC.keywords" content="remote sensing project,NDVI,NDMI,index,Plant disease detect,Plant disease, image processing project">
+	<meta name="robots" content="max-image-preview:large" />
+	<link rel="canonical" href="https://eos.com/" />
+	<meta name="generator" content="All in One SEO (AIOSEO) 4.2.4 " />
+	<meta property="og:locale" content="en_US" />
+	<meta property="og:site_name" content="AGROVISION" />
+	<meta property="og:type" content="article" />
+	<meta property="og:title" content="Satellite Imagery, Field Analysis, Plant Disease Detection" />
+	<meta property="og:description" content="AgroVision is a cloud-based platform which provide satellite data to help you analyze fields and observe plant health it also help you to detect plant disease and guide you to cure it" />
+	<meta property="og:url" content="https://eos.com/" />
+	<meta property="og:image" content="https://static.eos.com/wp-content/uploads/2021/05/1640х856.png" />
+	<meta property="og:image:secure_url" content="https://static.eos.com/wp-content/uploads/2021/05/1640х856.png" />
+	<meta property="article:published_time" content="2020-10-21T11:43:24+00:00" />
+	<meta property="article:modified_time" content="2022-11-15T10:30:49+00:00" />
+	<meta name="twitter:card" content="summary" />
+	<meta name="twitter:title" content="Geospatial Data Analytics, GIS Software, Satellite Imagery In EOS" />
+	<meta name="twitter:description" content="EOSDA is a cloud-based platform to derive geospatial data and analyze satellite imagery for business and science purposes." />
+	<meta name="twitter:image" content="https://static.eos.com/wp-content/uploads/2021/05/900x900.png" />
+	<!-- All in One SEO -->
+    <link rel="stylesheet" href="weather.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Concert+One:wght@300&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap');
+        html{
+            height: 100%;
+        }
+        h1{
+            text-align: center;
+        }
+        body{
+            background: rgb(94, 94, 94);
+            padding: 1rem 5rem;
+            font-family: 'Roboto', sans-serif;
+            text-transform: capitalize;
+            background-image: url("static/images/weather.JPG");
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+        }
+        .header{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .header h1{
+            color: rgb(255, 255, 255);
+            /* text-decoration: underline; */
+            font-family: 'Orbitron', sans-serif;
+        }
+        #input{
+            font-size: 18px;
+            padding: 5px 10px;
+            outline: none;
+            border: none;
+            border-radius: 15px;
+            background: aliceblue;
+        }
+        #search{
+            background: none;
+            padding: 5px 20px;
+            color: aliceblue;
+            outline: none;
+            background: #3A8891;
+            font-size: 17px;
+            border-radius: 15px;
+            cursor: pointer;
+            border: none;
+        }
+        .weather{
+            text-align: center;
+            color: aliceblue;
+        }
+        #city{
+            font-size: 30px;
+        }
+        .weather img{
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: rgba(240, 248, 255, 0.408);
+        }
+        #temperature{
+            font-size: 50px;
+            margin: 0;
+            margin-left: 30px;
+            margin-bottom: 10px;
+        }
+        .temp-box{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 30px 0;
+        }
+        #clouds{
+            font-size: 25px;
+            background: rgba(210, 224, 13, 0.734);
+            padding: 2px 20px;
+            border-radius: 15px;
+        }
+        main{
+            display: grid;
+            grid-column-gap: 25px;
+            grid-template-columns: 1fr 5px 1fr;
+            align-items: center;
+            margin: 0 50px;
+            color: white;
+        }
+        .next{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 10px 0;
+        }
+        .next p,.next h3{
+            margin: 3px 0;
+        }
+        .forecstD{
+            margin: 20px 50px;
+            color: aliceblue;
+        }
+        .weekF{
+            display: grid;
+            grid-template-columns: repeat(4,1fr);
+        }
+        .cast-header{
+            color: aliceblue;
+            background: rgba(230, 70, 1, 0.539);
+            width: max-content;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+        .divider1,.divider2{
+            background: rgba(254, 189, 132, 0.539);
+            height: 200px;
+            border-radius: 5px;
+        }
+        .divider2{
+            height: 5px;
+            width: 30%;
+            margin: 0 auto;
+        }
+        .time,.date{
+            color: rgb(255 186 0);
+        }
+        .desc{
+            color: aliceblue;
+            margin-right: 150px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>WEATHER</h1>
+        <div>
+            <input type="text" name="" id="input" placeholder="Enter city name">
+            <button id="search" onclick="searchByCity()">Search</button></input>
+        </div>
+    </div>
+
+    <main>        
+        <div class="weather">
+            <h2 id="city">Delhi,IN</h2>
+            <div class="temp-box">
+                <img src="static/images/sun.png" draggable="false" alt="" id="img">
+                <p id="temperature">26 °C</p>
+            </div>
+            <span id="clouds">Broken Clouds</span>
+        </div>
+        <div class="divider1"></div>
+
+        <div class="forecstH">
+            <p class="cast-header">Upcoming forecast</p>
+            <div class="templist">
+
+                <div class="next">
+                    <div>
+                        <p class="time">8:30 PM</p>
+                        <p>29 °C / 29 °C</p>
+                    </div>
+                    <p class="desc" style="margin-right: 130px;">Light Rain</p>
+                </div>
+
+                <div class="next">
+                    <div>
+                        <p class="time">8:30 PM</p>
+                        <p>29 °C / 29 °C</p>
+                    </div>
+                    <p class="desc" style="margin-right: 130px">Light Rain</p>
+                </div>
+
+                <div class="next">
+                    <div>
+                        <p class="time">8:30 PM</p>
+                        <p>29 °C / 29 °C</p>
+                    </div>
+                    <p class="desc" style="margin-right: 130px">Light Rain</p>
+                </div>
+
+                <div class="next">
+                    <div>
+                        <p class="time">8:30 PM</p>
+                        <p>29 °C / 29 °C</p>
+                    </div>
+                    <p class="desc" style="margin-right: 130px">Light Rain</p>
+                </div>
+
+                <div class="next">
+                    <div>
+                        <p class="time">8:30 PM</p>
+                        <p>29 °C / 29 °C</p>
+                    </div>
+                    <p class="desc" style="margin-right: 130px">Light Rain</p>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <div class="forecstD">
+        <div class="divider2"></div>
+        <p class="cast-header"> Next 4 days forecast</p>
+        <div class="weekF">
+
+            <div class="dayF">
+                <p class="date">Sun Jul 03 2022</p>
+                <p>31 °C / 31 °C</p>
+                <p class="desc" style="margin-right: 130px;">Overcast Clouds</p>
+            </div>
+
+            <div class="dayF">
+                <p class="date">Sun Jul 03 2022</p>
+                <p>31 °C / 31 °C</p>
+                <p class="desc">Overcast Clouds</p>
+            </div>
+
+            <div class="dayF">
+                <p class="date">Sun Jul 03 2022</p>
+                <p>31 °C / 31 °C</p>
+                <p class="desc">Overcast Clouds</p>
+            </div>
+
+            <div class="dayF">
+                <p class="date">Sun Jul 03 2022</p>
+                <p>31 °C / 31 °C</p>
+                <p class="desc">Overcast Clouds</p>
+            </div>
+        </div>
+    </div>
+    <script>
+        const apikey = "YOURAPI";
+        window.addEventListener("load", () => {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition((position) => {
+                    let lon = position.coords.longitude;
+                    let lat = position.coords.latitude;
+                    const url = `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&` + `lon=${lon}&appid=${`1220d80148681d7e1fc311ba2101ed45`}`;
+                    fetch(url).then((res) => {
+                        return res.json();
+                    }).then((data) => {
+                        console.log(data);
+                        console.log(new Date().getTime())
+                        var dat = new Date(data.dt)
+                        console.log(dat.toLocaleString(undefined, 'Asia/Kolkata'))
+                        console.log(new Date().getMinutes())
+                        weatherReport(data);
+                    })
+                })
+            }
+        })
+        function searchByCity() {
+            var place = document.getElementById('input').value;
+            var urlsearch = `http://api.openweathermap.org/data/2.5/weather?q=${place}&` + `appid=${`1220d80148681d7e1fc311ba2101ed45`}`;
+
+            fetch(urlsearch).then((res) => {
+                return res.json();
+            }).then((data) => {
+                console.log(data);
+                weatherReport(data);
+            })
+            document.getElementById('input').value = '';
+        }
+
+        function weatherReport(data) {
+
+            var urlcast = `http://api.openweathermap.org/data/2.5/forecast?q=${data.name}&` + `appid=${`1220d80148681d7e1fc311ba2101ed45`}`;
+
+            fetch(urlcast).then((res) => {
+                return res.json();
+            }).then((forecast) => {
+                console.log(forecast.city);
+                hourForecast(forecast);
+                dayForecast(forecast)
+                console.log(data);
+                document.getElementById('city').innerText = data.name + ', ' + data.sys.country;
+                console.log(data.name, data.sys.country);
+                console.log(Math.floor(data.main.temp - 273));
+                document.getElementById('temperature').innerText = Math.floor(data.main.temp - 273) + ' °C';
+                document.getElementById('clouds').innerText = data.weather[0].description;
+                console.log(data.weather[0].description)
+                let icon1 = data.weather[0].icon;
+                let iconurl = "http://api.openweathermap.org/img/w/" + icon1 + ".png";
+                document.getElementById('img').src = iconurl
+            })
+        }
+
+        function hourForecast(forecast) {
+            document.querySelector('.templist').innerHTML = ''
+            for (let i = 0; i < 5; i++) {
+                var date = new Date(forecast.list[i].dt * 1000)
+                console.log((date.toLocaleTimeString(undefined, 'Asia/Kolkata')).replace(':00', ''))
+                let hourR = document.createElement('div');
+                hourR.setAttribute('class', 'next');
+                let div = document.createElement('div');
+                let time = document.createElement('p');
+                time.setAttribute('class', 'time')
+                time.innerText = (date.toLocaleTimeString(undefined, 'Asia/Kolkata')).replace(':00', '');
+                let temp = document.createElement('p');
+                temp.innerText = Math.floor((forecast.list[i].main.temp_max - 273)) + ' °C' + ' / ' + Math.floor((forecast.list[i].main.temp_min - 273)) + ' °C';
+                div.appendChild(time)
+                div.appendChild(temp)
+                let desc = document.createElement('p');
+                desc.setAttribute('class', 'desc')
+                desc.innerText = forecast.list[i].weather[0].description;
+                hourR.appendChild(div);
+                hourR.appendChild(desc)
+                document.querySelector('.templist').appendChild(hourR);
+            }
+        }
+
+        function dayForecast(forecast) {
+            document.querySelector('.weekF').innerHTML = ''
+            for (let i = 8; i < forecast.list.length; i += 8) {
+                console.log(forecast.list[i]);
+                let div = document.createElement('div');
+                div.setAttribute('class', 'dayF');
+                let day = document.createElement('p');
+                day.setAttribute('class', 'date')
+                day.innerText = new Date(forecast.list[i].dt * 1000).toDateString(undefined, 'Asia/Kolkata');
+                div.appendChild(day);
+                let temp = document.createElement('p');
+                temp.innerText = Math.floor((forecast.list[i].main.temp_max - 273)) + ' °C' + ' / ' + Math.floor((forecast.list[i].main.temp_min - 273)) + ' °C';
+                div.appendChild(temp)
+                let description = document.createElement('p');
+                description.setAttribute('class', 'desc')
+                description.innerText = forecast.list[i].weather[0].description;
+                div.appendChild(description);
+                document.querySelector('.weekF').appendChild(div)
+            }
+        } 
+
+    </script>
+</body>
+</html>
