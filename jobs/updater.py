@@ -17,8 +17,8 @@ def start():
     # 'interval',
     # seconds=10,
     # trigger=CronTrigger(second="*/20"),
-    # trigger=CronTrigger(day='*/1',hour=0,minute=0,second = 0),
-    trigger=CronTrigger(hour=0,minute=0,second = 0),
+    trigger=CronTrigger(day='*/1',hour=0,minute=0,second = 0),
+    # trigger=CronTrigger(hour=0,minute=0,second = 0),
     id="my_job",  # The `id` assigned to each job MUST be unique
     max_instances=1,
     replace_existing=True,

@@ -35,6 +35,9 @@ def SendWeatherForcast():
             # for field in fieldList:
             for j in range(0,len(fieldList)-1):
                 field = fieldList[j]
+                fieldID = field["fieldId"]
+                cropType = field["cropType"]
+                area = field["area"]
                 coordinates = json.dumps(field["coord"])
                 geojson = GEOJSON(field["cropType"],field["sowingDate"] ,field["year"] ,coordinates)
                 # print(geojson)
@@ -87,6 +90,9 @@ def SendWeatherForcast():
                 htmly     = get_template('mail_body.html')
 
                 d = {
+                    'fieldId':fieldID,
+                    'area': area,
+                    'cropType' : cropType,
                     'Date': tomorrowWDate,
                     'Wind': wind1,
                     'Humidity':humidity1,

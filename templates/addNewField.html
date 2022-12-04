@@ -595,11 +595,13 @@
   </div>
   <div class="loading"
     style="display: none;margin-left:10%;margin-right: 10%;margin-top: auto;margin-bottom: auto;font-family:sans-serif;color: #7DCE13;margin-top: 12rem;">
-    <h1>processing ...</h1><br><span style="font-size: 3rem;" id="pvalue">1</span><span style="font-size: 3rem;">%</span>
+    <h1>processing ...</h1><br><span style="font-size: 3rem;" id="pvalue">0</span><span style="font-size: 3rem;">%</span>
     <div id="myProgress">
       <div id="myBar"></div>
     </div>
   </div>
+
+
   <script type="text/javascript"
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC8s5oSXTAtVKlJy6l-SR2XXZAb9yl7wNU&libraries=drawing"></script>
   <script type="text/javascript" src="/static/js/drawmap.js"></script>
@@ -677,30 +679,35 @@
     document.getElementById("dateinput").ariaValueMax = maxDate
 
   </script>
-    <script>
-      var main = document.querySelector(".main");
-      var loading = document.querySelector(".loading");
-      var pvalue = document.querySelector("#pvalue");
-      var i = 0;
-      function move() {
-        main.style.display = "none";
-        loading.style.display = "block";
-        if (i == 0) {
-          i = 1;
-          var elem = document.getElementById("myBar");
-          var width = 1;
-          var id = setInterval(frame, 500);
-          function frame() {
-            if (width >= 100) {
-              clearInterval(id);
-              i = 0;
-            } else {
-              width++;
-              elem.style.width = width + "%";
-              pvalue.innerHTML = width;
+  <script>
+    var main = document.querySelector(".main");
+    var loading = document.querySelector(".loading");
+    var pvalue = document.querySelector("#pvalue");
+    var i = 0;
+    function move() {
+      main.style.display = "none";
+      loading.style.display = "block";
+      if (i == 0) {
+        i = 1;
+        var elem = document.getElementById("myBar");
+        var width = 1;
+        var id = setInterval(frame, 500);
+        function frame() {
+          if (width >= 100) {
+            clearInterval(id);
+            i = 0;
+          } else {
+            width++;
+            elem.style.width = width + "%";
+            pvalue.innerHTML = width;
+            if(width=="100")
+            {
+              main.style.display = "block";
+              loading.style.display = "none"
             }
           }
         }
       }
-    </script>
+    }
+  </script>
 </body>

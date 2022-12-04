@@ -34,7 +34,8 @@ import numpy as np
 from PIL import Image
 import tensorflow
 from tensorflow.keras.models import load_model
-
+from keras_preprocessing.image import img_to_array, load_img
+from keras.applications.vgg19 import preprocess_input
 ####################################################################
 
 
@@ -494,7 +495,7 @@ def route1(request):
         print(url5)
         payload5 = ""
 
-        time.sleep(9)
+        time.sleep(10)
         response5 = requests.request("GET", url5, headers=headers, data=payload5)
         if response5.status_code != 200:
             return render(request,"error.html",{"error":"Status code:"+str(response5.status_code)+" Response:"+response5.text})
@@ -533,27 +534,46 @@ def diseasePredict(request):
             bytesio_object = request.FILES['plantImg'].file
             open(str(os.getcwd())+"/static/uploads/"+imgName, 'wb').write(bytesio_object.read())
 
-            # using model
-            MODEL_PATH = str(os.getcwd())+'/Home/Model/Model1.h5'
+            # my model
+            MODEL_PATH = str(os.getcwd())+'/Home/Model/MyModel.h5'
             model = load_model(MODEL_PATH)
 
-            CLASS_NAMES = ["Early Blight", "Late Blight", "Healthy"]
+            CLASS_NAMES = ['Apple___Apple_scab', 'Apple___Black_rot', 'Apple___Cedar_apple_rust',
+            'Apple___healthy', 'Blueberry___healthy', 'Cherry_(including_sour)___Powdery_mildew',
+            'Cherry_(including_sour)___healthy', 'Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot', 'Corn_(maize)___Common_rust_',
+            'Corn_(maize)___Northern_Leaf_Blight', 'Corn_(maize)___healthy', 'Grape___Black_rot',
+            'Grape___Esca_(Black_Measles)','Grape___Leaf_blight_(Isariopsis_Leaf_Spot)', 'Grape___healthy',
+            'Orange___Haunglongbing_(Citrus_greening)', 'Peach___Bacterial_spot', 'Peach___healthy',
+            'Pepper,_bell___Bacterial_spot', 'Pepper,_bell___healthy', 'Potato___Early_blight',
+            'Potato___Late_blight', 'Potato___healthy', 'Raspberry___healthy',
+            'Soybean___healthy', 'Squash___Powdery_mildew', 'Strawberry___Leaf_scorch',
+            'Strawberry___healthy','Tomato___Bacterial_spot', 'Tomato___Early_blight',
+            'Tomato___Late_blight', 'Tomato___Leaf_Mold', 'Tomato___Septoria_leaf_spot',
+            'Tomato___Spider_mites Two-spotted_spider_mite','Tomato___Target_Spot', 'Tomato___Tomato_Yellow_Leaf_Curl_Virus',
+            'Tomato___Tomato_mosaic_virus', 'Tomato___healthy'
+            ]
 
-            image = np.array(Image.open(str(os.getcwd())+"/static/uploads/"+imgName))
+            path = str(os.getcwd())+"/static/uploads/"+imgName
+            try:
+                img = load_img(path, target_size = (256,256))
+                imgArr = img_to_array(img)
+                processedImg = preprocess_input(imgArr)
+                finalImg = np.expand_dims(processedImg, axis=0)
+                pred = model.predict(finalImg)
+                diseaseClass = np.argmax(pred)
+                print(diseaseClass)
 
-            img_batch = np.expand_dims(image, 0)
-
-            predictions = model.predict(img_batch)
-
-            predicted_class = CLASS_NAMES[np.argmax(predictions[0])]
-            confidence = np.max(predictions[0])
-            context = {
-                "fullName":request.user.first_name+' '+request.user.last_name,
-                'Class': predicted_class,
-                'Confidence': str(confidence)
-            }
-            print(context)
-            return render(request,"result.html",context)
+                predicted_class = CLASS_NAMES[np.argmax(pred[0])]
+                confidence = np.max(pred[0])
+                context = {
+                    "fullName":request.user.first_name+' '+request.user.last_name,
+                    'Class': predicted_class,
+                    'Confidence': str(confidence)
+                }
+                print(context)
+                return render(request,"result.html",context)
+            except Exception:
+                return render(request,"error.html",{"error":"Invalid Imgage"})
         else:
             return render(request,"diseasePredict.html",{"fullName":request.user.first_name+' '+request.user.last_name})
     else:
@@ -590,13 +610,14 @@ def addNewField(request):
         dict1 = json.loads(response1.text)
         area = dict1["area"]
 
-        listField = json.loads(data)
+        fieldDiscription = request.POST.get("fieldName")
         cropType = request.POST.get("cropType")
         sowingDate = request.POST.get("sowingDate")
-        # print(sowingDate)
         year = sowingDate[0:4]
+
+        listField = json.loads(data)
+
         newFieldGeojsonStr = GEOJSON(cropType, sowingDate, year, coordinates)
-        fieldDiscription = request.POST.get("fieldName")
         fielddict = {
             "username" : request.user.username,
             "fieldId": request.user.username+str(len(listField)+1),
@@ -607,6 +628,7 @@ def addNewField(request):
             "fieldDiscription" : fieldDiscription,
             "coord": json.loads(coordinates)
         }
+
 
         listField.append(fielddict)
         finaldata = json.dumps(listField)

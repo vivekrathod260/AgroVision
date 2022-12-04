@@ -1,1 +1,1 @@
-Date:{{Date}} Wind = {{Wind}} Humidity = {{Humidity}} Temperature = {{Temperature}} Cloud = {{Cloud}}
+Field ID:{{fieldId}} Area:{{area}} Crop Type:{{cropType}} Date:{{Date}} Wind = {{Wind}} Humidity = {{Humidity}} Temperature = {{Temperature}} Cloud = {{Cloud}}
