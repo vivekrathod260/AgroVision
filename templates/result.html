@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Plant Disease Prediction | Agrovision</title>
+	<link href="/static/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/static/css/global.css" rel="stylesheet">
+	<link href="/static/css/index.css" rel="stylesheet" />
+	<link href="/static/css/details.css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="/static/css/font-awesome.min.css" />
+	<link href="https://fonts.googleapis.com/css?family=Philosopher" rel="stylesheet">
+	<link href="/static/css/ken-burns.css" rel="stylesheet" type="text/css" media="all" />
+	<link type="text/css" rel="stylesheet" href="/static/css/animate.css" />
+	<script src="/static/js/jquery-2.1.1.min.js"></script>
+	<script src="/static/js/bootstrap.min.js"></script>
+
+	<!-- All in One SEO 4.2.4 - aioseo.com -->
+	<meta name="description"
+		content="AgroVision is a cloud-based platform which provide satellite data to help you analyze fields and observe plant health it also help you to detect plant disease and guide you to cure it" />
+	<meta name="keywords"
+		content="remote sensing project,NDVI,NDMI,index,Plant disease detect,Plant disease, image processing project">
+	<meta name="DC.keywords"
+		content="remote sensing project,NDVI,NDMI,index,Plant disease detect,Plant disease, image processing project">
+	<meta name="robots" content="max-image-preview:large" />
+	<link rel="canonical" href="https://eos.com/" />
+	<meta name="generator" content="All in One SEO (AIOSEO) 4.2.4 " />
+	<meta property="og:locale" content="en_US" />
+	<meta property="og:site_name" content="AGROVISION" />
+	<meta property="og:type" content="article" />
+	<meta property="og:title" content="Satellite Imagery, Field Analysis, Plant Disease Detection" />
+	<meta property="og:description"
+		content="AgroVision is a cloud-based platform which provide satellite data to help you analyze fields and observe plant health it also help you to detect plant disease and guide you to cure it" />
+	<meta property="og:url" content="https://eos.com/" />
+	<meta property="og:image" content="https://static.eos.com/wp-content/uploads/2021/05/1640х856.png" />
+	<meta property="og:image:secure_url" content="https://static.eos.com/wp-content/uploads/2021/05/1640х856.png" />
+	<meta property="article:published_time" content="2020-10-21T11:43:24+00:00" />
+	<meta property="article:modified_time" content="2022-11-15T10:30:49+00:00" />
+	<meta name="twitter:card" content="summary" />
+	<meta name="twitter:title" content="Geospatial Data Analytics, GIS Software, Satellite Imagery In EOS" />
+	<meta name="twitter:description"
+		content="EOSDA is a cloud-based platform to derive geospatial data and analyze satellite imagery for business and science purposes." />
+	<meta name="twitter:image" content="https://static.eos.com/wp-content/uploads/2021/05/900x900.png" />
+	<!-- All in One SEO -->
+	<style>
+		.file {
+			position: relative;
+			display: inline-block;
+			cursor: pointer;
+			height: 2.5rem;
+		}
+
+		*,
+		*:before,
+		*:after {
+			-webkit-box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			box-sizing: border-box;
+		}
+
+		label {
+			cursor: default;
+		}
+
+		*,
+		*:before,
+		*:after {
+			-webkit-box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			box-sizing: border-box;
+		}
+
+		*,
+		*:before,
+		*:after {
+			-webkit-box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			box-sizing: border-box;
+		}
+
+		.file input {
+			min-width: 14rem;
+			margin: 0;
+			filter: alpha(opacity=0);
+			opacity: 0;
+		}
+
+		*,
+		*:before,
+		*:after {
+			-webkit-box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			box-sizing: border-box;
+		}
+
+		input[type="file" i] {
+			appearance: none;
+			background-color: initial;
+			cursor: default;
+			align-items: baseline;
+			color: inherit;
+			text-overflow: ellipsis;
+			white-space: pre;
+			text-align: start !important;
+			padding: initial;
+			border: initial;
+			overflow: hidden !important;
+		}
+
+		input {
+			writing-mode: horizontal-tb !important;
+			font-style: ;
+			font-variant-ligatures: ;
+			font-variant-caps: ;
+			font-variant-numeric: ;
+			font-variant-east-asian: ;
+			font-weight: ;
+			font-stretch: ;
+			font-size: ;
+			font-family: ;
+			text-rendering: auto;
+			color: fieldtext;
+			letter-spacing: normal;
+			word-spacing: normal;
+			line-height: normal;
+			text-transform: none;
+			text-indent: 0px;
+			text-shadow: none;
+			display: inline-block;
+			text-align: start;
+			appearance: auto;
+			-webkit-rtl-ordering: logical;
+			cursor: text;
+			background-color: field;
+			margin: 0em;
+			padding: 1px 2px;
+			border-width: 2px;
+			border-style: inset;
+			border-color: -internal-light-dark(rgb(118, 118, 118), rgb(133, 133, 133));
+			border-image: initial;
+		}
+
+		.file {
+			position: relative;
+			display: inline-block;
+			cursor: pointer;
+			height: 2.5rem;
+		}
+
+		label {
+			cursor: default;
+		}
+
+		*,
+		*:before,
+		*:after {
+			-webkit-box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			box-sizing: border-box;
+		}
+
+		*,
+		*:before,
+		*:after {
+			-webkit-box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			box-sizing: border-box;
+		}
+
+		.file-custom {
+			position: absolute;
+			top: 0;
+			right: 0;
+			left: 0;
+			z-index: 5;
+			height: 2.5rem;
+			padding: 0.5rem 1rem;
+			line-height: 1.5;
+			color: #555;
+			background-color: #fff;
+			border: 0.075rem solid #ddd;
+			border-radius: 0.25rem;
+			box-shadow: inset 0 0.2rem 0.4rem rgb(0 0 0 / 5%);
+			-webkit-user-select: none;
+			-moz-user-select: none;
+			-ms-user-select: none;
+			user-select: none;
+		}
+
+		*,
+		*:before,
+		*:after {
+			-webkit-box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			box-sizing: border-box;
+		}
+
+		.file {
+			position: relative;
+			display: inline-block;
+			cursor: pointer;
+			height: 2.5rem;
+		}
+
+		label {
+			cursor: default;
+		}
+
+		.file-custom:before {
+			position: absolute;
+			top: -0.075rem;
+			right: -0.075rem;
+			bottom: -0.075rem;
+			z-index: 6;
+			display: block;
+			content: "Browse";
+			height: 2.5rem;
+			padding: 0rem 1rem;
+			line-height: 1.5;
+			color: #555;
+			background-color: #eee;
+			border: 0.075rem solid #ddd;
+			border-radius: 0 0.25rem 0.25rem 0;
+		}
+
+		*,
+		*:before,
+		*:after {
+			-webkit-box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			box-sizing: border-box;
+		}
+
+		.file-custom:after {
+			content: "Choose file...";
+		}
+	</style>
+</head>
+
+<body>
+	<header>
+		<section id="header_main">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-12 space_all">
+						<div class="col-sm-3 space_all">
+							<div class="header_main_1">
+								<a href="/"><i class="fa fa-tree"></i>AgroVision</a>
+							</div>
+						</div>
+						<div class="col-sm-9 space_all">
+							<div class="header_main_2 clearfix">
+								<div class="col-sm-4 space_all">
+									<div class="header_main_3 clearfix">
+										<div class="col-sm-2">
+											<div class="header_main_4">
+											</div>
+										</div>
+										<div class="col-sm-10">
+											<div class="header_main_5">
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-sm-4 space_all">
+									<div class="header_main_3 clearfix">
+										<div class="col-sm-2">
+											<div class="header_main_4">
+											</div>
+										</div>
+										<div class="col-sm-10">
+											<div class="header_main_5">
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-sm-4 space_all">
+									<div class="header_main_3 clearfix">
+										<div class="col-sm-2">
+											<div class="header_main_4">
+											</div>
+										</div>
+										<div class="col-sm-10">
+											<div class="header_main_5">
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+
+		<section id="header" class="cd-secondary-nav" class="clearfix">
+			<nav class="navbar navbar-default" role="navigation">
+				<div class="container">
+					<!-- Brand and toggle get grouped for better mobile display -->
+					<div class="navbar-header">
+						<button type="button" class="navbar-toggle" data-toggle="collapse"
+							data-target="#dropdown-thumbnail-preview">
+							<span class="sr-only">Toggle navigation</span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</button>
+						<a class="navbar-brand" href="/"><i class="fa fa-tree"></i>AgroVision</a>
+					</div>
+					<!-- Collect the nav links, forms, and other content for toggling -->
+					<div class="collapse navbar-collapse" id="dropdown-thumbnail-preview">
+						<ul class="nav navbar-nav">
+							<li><a href="/">Home</a></li>
+							<li class="active"><a href="/services/">Services</a></li>
+							<li><a href="/contact/">Contact</a></li>
+							<li style="padding-left: 450px;"><a href="#">{{fullName}}</a></li>
+							<li><button type="button" class="btn btn-success"
+									style="margin-top: 10px;background-color: #398800"><a href="/logout/"
+										style="color:#ffffff">LOG OUT</a></button></li>
+							<li style="float: right; top: -50px; right: 0;">
+							</li>
+						</ul>
+					</div>
+					<!-- /.navbar-collapse -->
+				</div>
+				<!-- /.container-fluid -->
+			</nav>
+		</section>
+	</header>
+	<section id="details_main">
+		<div class="details_main_3 clearfix">
+			<div class="container">
+				<div class="row">
+					<div class="details_main_1 clearfix">
+						<div class="col-sm-6">
+							<div class="details_main_2">
+							</div>
+						</div>
+						<div class="col-sm-6">
+							<div class="details_main_2">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+
+
+	<section id="blog">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-8">
+					<img src="{{ imgDir }}" alt="SELECT IMAGE" class="img_responsive" id="plantImg" style="border-radius: 4rem; border:inset;border-width: 1.25rem;">
+				</div>
+				<div class="col-sm-4">
+					<button type="button" class="btn btn-primary btn-lg btn-block" style="margin-left: 50px;margin-bottom: 20px;">{{ Class }}</button>
+					<button type="button" class="btn btn-secondary btn-lg btn-block" style="margin-left: 50px;margin-bottom: 20px;">{{ Confidence }}</button>
+					<div class="card">
+						<div class="card-body">
+							<h5 class="card-title" style="margin-left: 50px;">{{ info }}</h5>
+							<br>
+							<p class="card-text" style="margin-left: 50px;">{{ cureMethod }}</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<footer>
+		<section id="footer">
+			<div class="footer_inner clearfix">
+				<div class="container">
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="col-sm-3">
+								<div class="footer_1">
+									<h3 style="margin-top: 80px;"><i class="fa fa-tree"></i> AgroVision</h3>
+								</div>
+							</div>
+							<div class="col-sm-3">
+								<div class="footer_2">
+									<h3>CONTACT-US</h3>
+									<ul>
+										<li>
+											<i class="fa fa-map-marker"></i> Walchand College of
+											Engineering, Sangli - Miraj, Vishrambag, Sangli, MH-416415
+										</li>
+										<li><i class="fa fa-phone"></i> Phone: +1 (2) 345 6789</li>
+										<li>
+											<i class="fa fa-envelope"></i>
+											<a href="#">akashmisal@gmail.com</a>
+										</li>
+									</ul>
+								</div>
+							</div>
+							<div class="col-sm-3">
+								<div class="footer_3">
+									<!-- <h3>SEMPER PORTA</h3> -->
+									<ul style="margin-top: 77px;">
+										<li>
+											<a href="#"><i class="fa fa-facebook"></i></a>
+										</li>
+										<li>
+											<a href="#"><i class="fa fa-twitter"></i></a>
+										</li>
+										<li>
+											<a href="#"><i class="fa fa-google-plus"></i></a>
+										</li>
+										<li>
+											<a href="#"><i class="fa fa-instagram"></i></a>
+										</li>
+									</ul>
+								</div>
+							</div>
+							<div class="col-sm-3">
+								<div class="footer_2">
+									<h3>Services</h3>
+									<ul>
+										<li>
+											Field Analysis
+										</li>
+										<li>
+											Plant Disease
+										</li>
+										<li>
+											Weather Forecast
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section id="footer_main" class="clearfix">
+			<div class="col-sm-12">
+				<div class="footer_main_1">
+					<p>© 2022 AgroVision</p>
+				</div>
+			</div>
+		</section>
+	</footer>
+
+	<script>
+		function showImage(src, target) {
+			var fr = new FileReader();
+			// when image is loaded, set the src of the image where you want to display it
+			fr.onload = function (e) { target.src = this.result; };
+			src.addEventListener("change", function () {
+				// fill fr with image data    
+				fr.readAsDataURL(src.files[0]);
+			});
+		}
+
+		var src = document.getElementById("file");
+		var target = document.getElementById("plantImg");
+		showImage(src, target);
+	</script>
+	<script>
+		$(document).ready(function () {
+			var secondaryNav = $('.cd-secondary-nav'),
+				secondaryNavTopPosition = secondaryNav.offset().top;
+			$(window).on('scroll', function () {
+				if ($(window).scrollTop() > secondaryNavTopPosition) {
+					secondaryNav.addClass('is-fixed');
+				} else {
+					secondaryNav.removeClass('is-fixed');
+				}
+			});
+		});
+	</script>
+	<script>
+		$(document).on('click', '.panel-heading span.clickable', function (e) {
+			var $this = $(this);
+			if (!$this.hasClass('panel-collapsed')) {
+				$this.parents('.panel').find('.panel-body').slideUp();
+				$this.addClass('panel-collapsed');
+				$this.find('i').removeClass('glyphicon-minus').addClass('glyphicon-plus');
+			} else {
+				$this.parents('.panel').find('.panel-body').slideDown();
+				$this.removeClass('panel-collapsed');
+				$this.find('i').removeClass('glyphicon-plus').addClass('glyphicon-minus');
+			}
+		});
+		$(document).on('click', '.panel div.clickable', function (e) {
+			var $this = $(this);
+			if (!$this.hasClass('panel-collapsed')) {
+				$this.parents('.panel').find('.panel-body').slideUp();
+				$this.addClass('panel-collapsed');
+				$this.find('i').removeClass('glyphicon-minus').addClass('glyphicon-plus');
+			} else {
+				$this.parents('.panel').find('.panel-body').slideDown();
+				$this.removeClass('panel-collapsed');
+				$this.find('i').removeClass('glyphicon-plus').addClass('glyphicon-minus');
+			}
+		});
+		$(document).ready(function () {
+			$('.panel-heading span.clickable').click();
+			$('.panel div.clickable').click();
+		});
+
+	</script>
+</body>

@@ -1,0 +1,1187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Field Analysis | AgroVison</title>
+  <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/static/css/global.css" rel="stylesheet">
+  <link href="/static/css/shop-details.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="/static/css/font-awesome.min.css" />
+  <link href="https://fonts.googleapis.com/css?family=Philosopher" rel="stylesheet">
+  <script src="/static/js/jquery-2.1.1.min.js"></script>
+  <script src="/static/js/bootstrap.min.js"></script>
+
+
+  <!-- All in One SEO 4.2.4 - aioseo.com -->
+  <meta name="description"
+    content="AgroVision is a cloud-based platform which provide satellite data to help you analyze fields and observe plant health it also help you to detect plant disease and guide you to cure it" />
+  <meta name="keywords"
+    content="remote sensing project,NDVI,NDMI,index,Plant disease detect,Plant disease, image processing project">
+  <meta name="DC.keywords"
+    content="remote sensing project,NDVI,NDMI,index,Plant disease detect,Plant disease, image processing project">
+  <meta name="robots" content="max-image-preview:large" />
+  <link rel="canonical" href="https://eos.com/" />
+  <meta name="generator" content="All in One SEO (AIOSEO) 4.2.4 " />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:site_name" content="AGROVISION" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Satellite Imagery, Field Analysis, Plant Disease Detection" />
+  <meta property="og:description"
+    content="AgroVision is a cloud-based platform which provide satellite data to help you analyze fields and observe plant health it also help you to detect plant disease and guide you to cure it" />
+  <meta property="og:url" content="https://eos.com/" />
+  <meta property="og:image" content="https://static.eos.com/wp-content/uploads/2021/05/1640х856.png" />
+  <meta property="og:image:secure_url" content="https://static.eos.com/wp-content/uploads/2021/05/1640х856.png" />
+  <meta property="article:published_time" content="2020-10-21T11:43:24+00:00" />
+  <meta property="article:modified_time" content="2022-11-15T10:30:49+00:00" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Geospatial Data Analytics, GIS Software, Satellite Imagery In EOS" />
+  <meta name="twitter:description"
+    content="EOSDA is a cloud-based platform to derive geospatial data and analyze satellite imagery for business and science purposes." />
+  <meta name="twitter:image" content="https://static.eos.com/wp-content/uploads/2021/05/900x900.png" />
+  <!-- All in One SEO -->
+
+  <style>
+    td {
+      text-align: left;
+    }
+
+    .tooltip {
+      position: relative;
+      display: inline-block;
+      border-bottom: 1px dotted black;
+    }
+
+    .tooltip .tooltiptext {
+      visibility: hidden;
+      width: 120px;
+      background-color: black;
+      color: #fff;
+      text-align: center;
+      border-radius: 6px;
+      padding: 5px 0;
+
+      /* Position the tooltip */
+      position: absolute;
+      z-index: 1;
+    }
+
+    .tooltip:hover .tooltiptext {
+      visibility: visible;
+    }
+
+    .dropbtn {
+      background-color: #04aa36;
+      color: white;
+      padding: 16px;
+      font-size: 16px;
+      border: none;
+    }
+
+    .dropdown {
+      position: relative;
+      display: inline-block;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #ffffff;
+      min-width: 160px;
+      box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+      z-index: 1;
+    }
+
+    .dropdown-content a {
+      color: black;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+    }
+
+    .dropdown-content a:hover {
+      background-color: #ddd;
+    }
+
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+
+    .dropdown:hover .dropbtn {
+      background-color: #3e8e41;
+    }
+
+    div.scrollmenu {
+      background-color: #333;
+      overflow: auto;
+      white-space: nowrap;
+    }
+
+    div.scrollmenu a {
+      display: inline-block;
+      color: white;
+      text-align: center;
+      padding: 14px;
+      text-decoration: none;
+    }
+
+    div.scrollmenu a:hover {
+      background-color: #777;
+    }
+
+    /* ADDED by me */
+    /* for date input  */
+    div.product_details_6 {
+      box-shadow: 1px 1px 30px 9px #b8b8b8;
+    }
+
+    *,
+    *:before,
+    *:after {
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+    }
+
+    input[type="date"] {
+      background-color: #7DCE13;
+      padding: 3px;
+      /* position: relative; */
+      /* transform: translate(-50%,-50%); */
+      /* top: 50%; */
+      /* left: 10%; */
+      font-family: "Roboto Mono", monospace;
+      color: #ffffff;
+      font-size: 18px;
+      border: none;
+      outline: none;
+      border-radius: 5px;
+      display: inline-block;
+    }
+
+    ::-webkit-calendar-picker-indicator {
+      background-color: #ffffff;
+      padding: 5px;
+      cursor: pointer;
+      border-radius: 3px;
+    }
+
+    /* for select element  */
+    /*the container must be positioned relative:*/
+    .custom-select {
+      position: relative;
+      font-family: Arial;
+    }
+
+    .custom-select select {
+      display: none;
+      /*hide original SELECT element:*/
+    }
+
+    .select-selected {
+      background-color: #7DCE13;
+    }
+
+    /*style the arrow inside the select element:*/
+    .select-selected:after {
+      position: absolute;
+      content: "";
+      top: 14px;
+      right: 10px;
+      width: 0;
+      height: 0;
+      border: 6px solid transparent;
+      border-color: #fff transparent transparent transparent;
+    }
+
+    /*point the arrow upwards when the select box is open (active):*/
+    .select-selected.select-arrow-active:after {
+      border-color: transparent transparent #fff transparent;
+      top: 7px;
+    }
+
+    /*style the items (options), including the selected item:*/
+    .select-items div,
+    .select-selected {
+      color: #ffffff;
+      padding: 8px 16px;
+      border: 1px solid transparent;
+      border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    /*style items (options):*/
+    .select-items {
+      position: absolute;
+      background-color: #7DCE13;
+      top: 100%;
+      left: 0;
+      right: 0;
+      z-index: 99;
+    }
+
+    /*hide the items when the select box is closed:*/
+    .select-hide {
+      display: none;
+    }
+
+    .select-items div:hover,
+    .same-as-selected {
+      background-color: rgba(0, 0, 0, 0.1);
+    }
+
+    /* for button */
+    .button111 {
+      display: inline-block;
+      padding: 15px 25px;
+      font-size: 24px;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+      outline: none;
+      color: #fff;
+      background-color: #7DCE13;
+      border: none;
+      border-radius: 15px;
+      box-shadow: 3px 6px 0px #d4d4d4;
+    }
+
+    .button111:hover {
+      background-color: #3e8e41
+    }
+
+    .button111:active {
+      background-color: #3e8e41;
+      box-shadow: 0 5px #666;
+      transform: translateY(4px);
+    }
+
+    /* for name */
+    .inputNames {
+      font-size: 4rem;
+      text-transform: capitalize;
+      text-shadow: 1px 1px 1px rgb(255, 255, 0), 2px 2px 1px rgb(255, 255, 0);
+      text-align: center;
+      display: inline-block;
+    }
+
+    .inputNames input {
+      margin-left: auto;
+      margin-right: 0;
+    }
+
+    .containerx,
+    .container-fluid,
+    .container-lg,
+    .container-md,
+    .container-sm,
+    .container-xl,
+    .container-xxl {
+      --bs-gutter-x: 1.5rem;
+      --bs-gutter-y: 0;
+      width: 100%;
+      padding-right: calc(var(--bs-gutter-x) * .5);
+      padding-left: calc(var(--bs-gutter-x) * .5);
+      margin-right: auto;
+      margin-left: auto;
+    }
+
+    .rowx {
+      --bs-gutter-x: 1.5rem;
+      --bs-gutter-y: 0;
+      display: flex;
+      flex-wrap: wrap;
+      margin-top: calc(-1 * var(--bs-gutter-y));
+      margin-right: calc(-.5 * var(--bs-gutter-x));
+      margin-left: calc(-.5 * var(--bs-gutter-x));
+    }
+
+    .colx {
+      flex: 1 0 0%;
+    }
+
+    /* loading  */
+    #myProgress {
+      width: 100%;
+      background-color: #ddd;
+    }
+
+    #myBar {
+      width: 1%;
+      height: 30px;
+      background-color: #04AA6D;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="main">
+    <section id="header_main">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12 space_all">
+            <div class="col-sm-3 space_all">
+              <div class="header_main_1">
+                <a href="/"><i class="fa fa-tree"></i>AgroVison</a>
+              </div>
+            </div>
+            <div class="col-sm-9 space_all">
+              <div class="header_main_2 clearfix">
+                <div class="col-sm-4 space_all">
+                  <div class="header_main_3 clearfix">
+                    <div class="col-sm-2">
+                      <div class="header_main_4">
+                      </div>
+                    </div>
+                    <div class="col-sm-10">
+                      <div class="header_main_5">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-4 space_all">
+                  <div class="header_main_3 clearfix">
+                    <div class="col-sm-2">
+                      <div class="header_main_4">
+                      </div>
+                    </div>
+                    <div class="col-sm-10">
+                      <div class="header_main_5">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-4 space_all">
+                  <div class="header_main_3 clearfix">
+                    <div class="col-sm-2">
+                      <div class="header_main_4">
+                      </div>
+                    </div>
+                    <div class="col-sm-10">
+                      <div class="header_main_5">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="header" class="cd-secondary-nav" class="clearfix">
+      <nav class="navbar navbar-default" role="navigation">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse"
+              data-target="#dropdown-thumbnail-preview">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/"><i class="fa fa-tree"></i>AgroVison</a>
+          </div>
+          <div class="collapse navbar-collapse" id="dropdown-thumbnail-preview">
+            <ul class="nav navbar-nav">
+              <li><a href="/">Home</a></li>
+              <li class="active"><a href="/services/">Services</a></li>
+              <li><a href="/contact/">Contact</a></li>
+              <li style="padding-left: 450px;"><a href="#">{{fullName}}</a></li>
+              <li><button type="button" class="btn btn-success" style="margin-top: 10px;background-color: #398800"><a
+                    href="/logout/" style="color:#ffffff">LOG OUT</a></button></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </section>
+
+    <section id="shop_details_main">
+      <div class="shop_details_main_3 clearfix">
+
+      </div>
+    </section>
+
+    <!-- Main body  -->
+    <section id="product_details" class="clearfix">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="col-sm-7">
+              <!-- image -->
+              <div style="box-shadow:3px 1px 10px 9px #b8b8b8;border: inset;border-width: 1rem;padding: 2rem;margin-bottom: 3rem;">
+                <img src="/static/fieldImages/{{imageFileName}}.png" style="height:auto; width:100%"
+                  alt="Opps image not available right now try again ..">
+              </div>
+            </div>
+            <div class="col-sm-5">
+              <div style="margin-top: 1.5rem; text-align: center;">
+              <!-- field colour info -->
+              <div class="containerx">
+                <div class="rowx">
+                  <div class="colx" style="font-size: 2rem;margin: bottom 3rem;">
+                    <h4>Date :{{viewdate}}</h4>
+                  </div>
+                  <div class="colx">
+                    <h4>Index :{{index}}</h4>
+                  </div>
+                </div> 
+                <div class="rowx">
+                  <div class="colx">
+                    <div  style="overflow-y:scroll; height:53rem;margin-top: 2rem;box-shadow:3px 1px 10px 9px #b8b8b8;border: inset;border-width: 1rem;">
+                      <img style="width: 100%;height:auto;" draggable="false" src="/static/images/{{index}}.jpg" alt="{{index}}">
+                    </div>                    
+                  </div>
+                </div>               
+              </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-12" style="margin-top: 7rem;">
+            <div class="col-sm-7">
+              <input type="hidden" value="{{imageName}}" id="target">
+              <!-- form input -->
+              <form action="/route1" method="post">
+                {% csrf_token %}
+                <div class="containerx">
+                  <div class="rowx" style="margin-bottom: 3rem;">
+                    <div class="colx">
+                      <label class="inputNames">VIEW DATE </label>
+                    </div>
+                    <div class="colx" style="padding: 0.8rem 0;">
+                      <input style="box-shadow:3px 1px 10px 9px #b8b8b8;border: inset;" type="date" id="dateinput"
+                        name="viewDate" min="2015-01-01">
+                    </div>
+                  </div>
+                  <div class="rowx">
+                    <div class="colx">
+                      <label class="inputNames">INDEX </label>
+                    </div>
+                    <div class="colx" style="padding: 0.8rem 0;">
+                      <div class="custom-select"
+                        style="box-shadow:3px 1px 10px 9px #b8b8b8;border: inset;width:144px;border-radius: 5px;">
+                        <select id="select" name="index" style="box-shadow:3px 1px 10px 9px #b8b8b8;border: inset;">
+                          <option value="NDVI" selected="selected">NDVI</option>
+                          <option value="NDMI">NDMI</option>
+                          <option value="NDWI">NDWI</option>
+                          <option value="RECI">RECI</option>
+                          <option value="NDRE">NDRE</option>
+                          <option value="MSAVI">MSAVI</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="rowx">
+                    <div style="margin-bottom: 3rem;" class="colx">
+                      <button style="width: 100%;margin-top: 6rem;" class="button111" type="submit"
+                        onclick="move()">GET</button>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div class="col-sm-5">
+              <!-- Weather -->
+              <div class="product_details_6" style="text-align: center;">
+                <div class="panel panel-success">
+                  <div class="panel-heading">
+                    <h3 class="panel-title">Weather {{weatherDate}}</h3>
+                    <span class="pull-right clickable"><i class="glyphicon glyphicon-plus"></i></span>
+                  </div>
+                  <div class="panel-body" style="display: none;padding-bottom: 3rem;">
+                    <div class="col-sm-12 space_all">
+                      <div class="product_details_8">
+                        <div class="containerx">
+                          <div class="rowx">
+                            <div class="colx">---------{{weatherDate1}}---------</div>
+                          </div>
+                          <div class="rowx">
+                            <div class="colx">--Wind--</div>
+                            <div class="colx">---Temperature---</div>
+                            <div class="colx">--Clouds--</div>
+                          </div>
+                          <div class="containerx">
+                            <div class="rowx">
+                              <div class="colx">{{wind1}}</div>
+                              <div class="colx">{{temp1}}</div>
+                              <div class="colx">{{cloud1}}</div>
+                            </div>
+                          </div>
+                          <div class="rowx">
+                            <div class="colx">---------{{weatherDate2}}---------</div>
+                          </div>
+                          <div class="rowx">
+                            <div class="colx">--Wind--</div>
+                            <div class="colx">---Temperature---</div>
+                            <div class="colx">--Clouds--</div>
+                          </div>
+                          <div class="containerx">
+                            <div class="rowx">
+                              <div class="colx">{{wind2}}</div>
+                              <div class="colx">{{temp2}}</div>
+                              <div class="colx">{{cloud2}}</div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+
+
+    <section id="explore">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12 padding_all">
+            <div class="Popular_inner_1 clearfix">
+              <div class="Popular_1 clearfix">
+                <ul class="nav nav-tabs">
+                  <!-- <li class="active"><a data-toggle="tab" href="#home">DEMO</a></li> -->
+                  <!-- <li class=""><a data-toggle="tab" href="#menu1">HOW TO USE</a></li> -->
+                  <!-- <li class=""><a data-toggle="tab" href="#menu2">Field Index(info)</a></li> -->
+                  <li class=""><a data-toggle="tab" href="#NDVI">NDVI</a></li>
+                  <li class=""><a data-toggle="tab" href="#NDMI">NDMI</a></li>
+                  <li class=""><a data-toggle="tab" href="#NDWI">NDWI</a></li>
+                  <li class=""><a data-toggle="tab" href="#MSAVI">MSAVI</a></li>
+                  <li class=""><a data-toggle="tab" href="#ReCI">ReCI</a></li>
+                  <li class=""><a data-toggle="tab" href="#NDRE">NDRE</a></li>
+                  <li class="well_22"><a data-toggle="tab" href="#menu4">SAMPLES</a></li>
+                </ul>
+
+
+
+                <div class="tab-content clearfix">
+
+                  <div id="home" class="tab-pane fade clearfix active in">
+                    <div class="click clearfix">
+                      <div class="col-sm-12 space_all">
+                        <div class="explore_1">
+                          <p>Put simply, NDVI(Normalized difference vegetation index) is a measure of the state of plant health based on how the plant reflects
+                            light at certain frequencies (some waves are absorbed and others are reflected).
+                            NDVI (Normalized Difference Vegetation Index) is a vegetative index, which is calculated according to
+                                the way a plant reflects and absorbs solar radiation at different wavelengths. The index allows for identification 
+                                of problem areas of the field at different stages of plant growth for timely response. Pay attention to the areas where NDVI 
+                                values ​​differ considerably. For example, the areas of a field that have an extremely low NDVI rate may indicate problems with pests or plant diseases; and the areas with an abnormally high NDVI signalize the occurrence of weeds.
+                                In the simplest terms possible, the Normalized Difference Vegetation Index (NDVI) measures the greenness
+                                and the density of the vegetation captured in a satellite image.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div id="menu1" class="tab-pane fade clearfix">
+                    <div class="col-sm-12 space_all">
+                      <div class="explore_4">
+                        <div class="col-sm-12" data-wow-delay="0.2s">
+                          <div class="carousel slide" data-ride="carousel" id="quote-carousel">
+                            <!-- Bottom Carousel Indicators -->
+                            <ol class="carousel-indicators">
+                              <li data-target="#quote-carousel" data-slide-to="0" class="active"><img
+                                  class="img-responsive " src="/static/images/66.JPG" alt="100%">
+                              </li>
+                              <li data-target="#quote-carousel" data-slide-to="1" class=""><img class="img-responsive"
+                                  src="/static/images/67.JPG" alt="100%">
+                              </li>
+                              <li data-target="#quote-carousel" data-slide-to="2" class=""><img class="img-responsive"
+                                  src="/static/images/68.JPG" alt="100%">
+                              </li>
+                            </ol>
+
+                            <!-- Carousel Slides / Quotes -->
+                            <div class="carousel-inner text-center">
+
+                              <!-- Quote 1 -->
+                              <div class="item active">
+                                <blockquote>
+                                  <div class="row">
+                                    <div class="col-sm-8 col-sm-offset-2">
+
+                                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                                        incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+                                        nostrud
+                                        exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+                                        irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+                                        nulla
+                                        pariatur. !</p>
+                                    </div>
+                                  </div>
+                                </blockquote>
+                              </div>
+                              <!-- Quote 2 -->
+                              <div class="item">
+                                <blockquote>
+                                  <div class="row">
+                                    <div class="col-sm-8 col-sm-offset-2">
+
+                                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                                        incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+                                        nostrud
+                                        exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+                                        irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+                                        nulla
+                                        pariatur. </p>
+
+                                    </div>
+                                  </div>
+                                </blockquote>
+                              </div>
+                              <!-- Quote 3 -->
+                              <div class="item">
+                                <blockquote>
+                                  <div class="row">
+                                    <div class="col-sm-8 col-sm-offset-2">
+
+                                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                                        incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+                                        nostrud
+                                        exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+                                        irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+                                        nulla
+                                        pariatur. .</p>
+                                    </div>
+                                  </div>
+                                </blockquote>
+                              </div>
+                            </div>
+                            <a data-slide="prev"
+                              href="http://bootsnipp-env.elasticbeanstalk.com/iframe/k2VZB#quote-carousel"
+                              class="left carousel-control"><i class="fa fa-chevron-left"></i></a>
+                            <a data-slide="next"
+                              href="http://bootsnipp-env.elasticbeanstalk.com/iframe/k2VZB#quote-carousel"
+                              class="right carousel-control"><i class="fa fa-chevron-right"></i></a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div id="menu2" class="tab-pane fade clearfix">
+                    <div class="col-sm-12 space_all">
+                      <div class="explore_6 clearfix">
+                        <div class="col-sm-4">
+                          <div class="explore_5">
+                            <h3>NDMI</h3>
+                            <ul>
+                              <li><a href="#">Dignissim: Lacinia Nunc</a></li>
+                              <li><a href="#">Tellus: Quis Sem </a></li>
+                              <li><a href="#">Integer: Nec Odionec</a></li>
+                              <li><a href="#">Lacinia</a></li>
+                              <li><a href="#">Praesent</a></li>
+                              <li><a href="#">Mauris</a></li>
+                              <li><a href="#">Integer Nec Odionec Odio!</a></li>
+                            </ul>
+                          </div>
+                        </div>
+                        <div class="col-sm-4">
+                          <div class="explore_5">
+                            <h3>NDVI</h3>
+                            <ul>
+                              <li><a href="#">Integer: Nec Odionec</a></li>
+                              <li><a href="#">Tellus: Sed Augue</a></li>
+                              <li><a href="#">Conubia: 70 Highroad</a></li>
+                              <li><a href="#">Nostra</a></li>
+                              <li><a href="#">Lacinia</a></li>
+                              <li><a href="#">Dapibus</a></li>
+                              <li><a href="#">Nibh Elementum Imperdiet!</a></li>
+                            </ul>
+                          </div>
+                        </div>
+                        <div class="col-sm-4">
+                          <div class="explore_5">
+                            <h3>NDRE</h3>
+                            <ul>
+                              <li><a href="#">Fusce Nec: Nulla Quis</a></li>
+                              <li><a href="#">Augue: Arcu Eget</a></li>
+                              <li><a href="#">Lacinia: Torquent Per</a></li>
+                              <li><a href="#">Mauris</a></li>
+                              <li><a href="#">Dapibus</a></li>
+                              <li><a href="#">Praesent</a></li>
+                              <li><a href="#">Fusce Nec Tellus Sed!</a></li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div id="menu3" class="tab-pane fade clearfix">
+                    <div class="col-sm-12 space_all">
+                      <div class="explore_1">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odionec odio.Sed cursus
+                          ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum
+                          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odionec odio.Sed cursus
+                          ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum
+                          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odionec odio.Sed cursus
+                          ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum
+                          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odionec odio.Sed cursus
+                          ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <div id="menu4" class="tab-pane fade clearfix">
+                    <div class="explore_8 clearfix">
+                      <div class="col-sm-12 space_all">
+                        <div class="col-sm-4">
+                          <div class="explore_7">
+                            <div class="ih-item square effect13 left_to_right"><a href="#">
+                                <div class="img"><img src="/static/images/69.JPG" alt="img"></div>
+                              </a></div>
+                          </div>
+                        </div>
+                        <div class="col-sm-4">
+                          <div class="explore_7">
+                            <div class="ih-item square effect13 left_to_right"><a href="#">
+                                <div class="img"><img src="/static/images/70.JPG" alt="img"></div>
+                              </a></div>
+                          </div>
+                        </div>
+                        <div class="col-sm-4">
+                          <div class="explore_7">
+                            <div class="ih-item square effect13 left_to_right"><a href="#">
+                                <div class="img"><img src="/static/images/71.JPG" alt="img"></div>
+                              </a></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <div id="NDVI" class="tab-pane fade clearfix">
+                    <div class="col-sm-12 space_all">
+                      <div class="explore_1">
+                        <p>Put simply, NDVI(Normalized difference vegetation index) is a measure of the state of plant health based on how the plant reflects
+                          light at certain frequencies (some waves are absorbed and others are reflected).
+                          NDVI (Normalized Difference Vegetation Index) is a vegetative index, which is calculated according to
+                              the way a plant reflects and absorbs solar radiation at different wavelengths. The index allows for identification 
+                              of problem areas of the field at different stages of plant growth for timely response. Pay attention to the areas where NDVI 
+                              values ​​differ considerably. For example, the areas of a field that have an extremely low NDVI rate may indicate problems with pests or plant diseases; and the areas with an abnormally high NDVI signalize the occurrence of weeds.
+                              In the simplest terms possible, the Normalized Difference Vegetation Index (NDVI) measures the greenness
+                              and the density of the vegetation captured in a satellite image.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div id="NDMI" class="tab-pane fade clearfix">
+                    <div class="col-sm-12 space_all">
+                      <div class="explore_1">
+                        <p>
+                          The NDMI (Normalized Difference Moisture Index) describes the crop’s water stress level and is calculated 
+                          as the ratio between the difference and the sum of the refracted radiation in the near-infrared and SWIR spectrums. 
+                          The interpretation of the absolute value of the NDMI makes it possible to immediately recognize the areas in which the farm or field 
+                          is experiencing water stress. NDMI is easy to interpret:
+                           its values vary between -1 and 1, and each value corresponds to a different agronomic situation, independently of the crop.
+                          The NDMI (Normalized Difference Moisture Index) describes the crop's water stress level and is calculated as the ratio
+                          between the difference and the sum of the refracted radiations in the near infrared and SWIR, that is as (NIR-SWIR)/(NIR+SWIR)
+                          The Normalized Difference Moisture Index (NDMI) detects moisture levels in vegetation using a 
+                          combination of near-infrared (NIR) and short-wave infrared (SWIR) spectral bands. It is a reliable indicator of water stress in crops.
+                          Severe drought conditions not only stress the crops but can destroy the entire yield. NDMI can detect water stress at 
+                          an early stage, before the problem has gone out of hand. Further, using NDMI to monitor irrigation, especially in areas where
+                          crops require more water than nature can supply, helps to significantly improve crop growth. All of this makes NDMI an excellent farm tool. 
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div id="NDWI" class="tab-pane fade clearfix">
+                    <div class="col-sm-12 space_all">
+                      <div class="explore_1">
+                        <p>
+                          The Normalized Difference Water Index (NDWI) is known to be strongly related to the plant water content. It is therefore a 
+                          very good proxy for plant water stress. The Normalized Difference Water Index (NDWI) (Gao, 1996) is a satellite-derived index 
+                          from the Near-Infrared (NIR) and Short Wave Infrared (SWIR) channels.
+                          The Normalized Difference Water Index (NDWI) is used to highlight open water features in a satellite image,
+                          allowing a water body to “stand out” against the soil and vegetation.
+                          Since the NDWI index effectively measures moisture content, it is often compared with the
+                          NDMI index, also known as NDWI GAO. In fact, there is a major difference in how the two are calculated and used.
+                          The NDMI makes use of the NIR-SWIR (near-infrared and short-wave infrared) combination to enhance
+                          the presence of water in leaves of plants. The NDWI, on the other hand, is calculated using the GREEN-NIR (visible 
+                          green and near-infrared) combination,which allows it to detect subtle changes in water content of the water bodies.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div id="MSAVI" class="tab-pane fade clearfix">
+                    <div class="col-sm-12 space_all">
+                      <div class="explore_1">
+                        <p>MSAVI(Modified Soil-Adjusted Vegetation Index) is a vegetation index that allows you to determine the presence of 
+                          vegetation in the early stages of emergence, when there is a lot of bare soil. The index minimizes the effect of bare soil on the display of vegetation maps. 
+                          Based on the index, you can build maps for differential fertilizer application in the early stages of crop growth.
+                          The modified soil-adjusted vegetation index (MSAVI) is an index designed to substitute 
+                          NDVI and NDRE where they fail to provide accurate data due to low vegetation or a lack of chlorophyll 
+                          in the plants. During the stages of germination and leaf development, there is a lot of bare soil between the seedlings.
+                          Modified soil adjusted vegetation index (MSAVI) works where other vegetation indices do not – 
+                          during seed germination and leaf development stages. You can use MSAVI on EOSDA Crop Monitoring to monitor seedlings when there is a lot 
+                          of bare soil in the field. Seed development is threatened by a number of risks:
+                          uneven growth
+                          cold stress & heat stress
+                          abnormal precipitation
+                          elevation differences, etc.
+                          MSAVI can be used in remote sensing to detect uneven seed growth.
+                          It can be compared to weather data on the graph revealing the correlation between 
+                          extreme weather and crop health. This knowledge at the early stages of plant development will allow 
+                          the farmer to readjust their field management practices and get more yields.
+
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div id="ReCI" class="tab-pane fade clearfix">
+                    <div class="col-sm-12 space_all">
+                      <div class="explore_1">
+                        <p>ReCl (Red-edge​ ​Chlorophyll​ ​Index) is an index of photosynthetic activity of a vegetative cover, sensitive to
+                          the content of chlorophyll in leaves. Since the level of chlorophyll is directly related to the level of nitrogen in the crop, the index allows you to 
+                         identify the areas of the field that have yellowed or faded leaves, which may require additional fertilizer application.
+                         Key fact: Because chlorophyll content directly depends on nitrogen level in plants, 
+                          responsible for their “greenness”, this vegetation index in remote sensing helps detect areas with yellow or shed foliage.
+                          When to use: ReCI values are most useful at the stage of active vegetation development but are not suitable for the season of harvesting.
+                          Since the level of chlorophyll is directly related to the level of nitrogen in the crop, the index
+                          allows you to identify the areas of the field 
+                          that have yellow or faded leaves, which may require additional fertilizer application.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div id="NDRE" class="tab-pane fade clearfix">
+                    <div class="col-sm-12 space_all">
+                      <div class="explore_1">
+                        <p>NDRE (Normalized Difference RedEdge) is an indicator of photosynthetic activity of a vegetation cover used
+                          to estimate nitrogen concentrations in plant leaves in the middle and at the end of a season. It allows you 
+                         to detect the oppressed and aging vegetation and is used 
+                         to identify plant diseases. It also makes it possible to optimize the timing of the harvest.
+                          Normalized difference red edge index (NDRE for short) is a method of measuring the amount of chlorophyll
+                          in the plants. The best timing to apply
+                          NDRE is mid-to-late growing season when the plants are mature and ready to be harvested. At this point,
+                          other indices would be less effective to use.
+                          Let’s dive into details and see how to use normalized difference red edge vegetation index 
+                          for monitoring crops on our Platform. You will find out why this index is more effective at later stages of plant development.
+                          Normalized difference red edge index (NDRE for short) is a method of measuring the 
+                          amount of chlorophyll in the plants. The best timing to apply NDRE is mid-to-late growing season
+                          when the plants are mature and ready to be harvested. At this point, other indices would be less effective to use.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="footer">
+      <div class="footer_inner clearfix">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="col-sm-3">
+                <div class="footer_1">
+                  <h3 style="margin-top: 80px;"><i class="fa fa-tree"></i> AgroVision</h3>
+                </div>
+              </div>
+              <div class="col-sm-3">
+                <div class="footer_2">
+                  <h3>CONTACT-US</h3>
+                  <ul>
+                    <li>
+                      <i class="fa fa-map-marker"></i> Walchand College of
+                      Engineering, Sangli - Miraj, Vishrambag, Sangli, MH-416415
+                    </li>
+                    <li><i class="fa fa-phone"></i> Phone: +1 (2) 345 6789</li>
+                    <li>
+                      <i class="fa fa-envelope"></i>
+                      <a href="#">akashmisal@gmail.com</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-sm-3">
+                <div class="footer_3">
+                  <!-- <h3>SEMPER PORTA</h3> -->
+                  <ul style="margin-top: 77px;">
+                    <li>
+                      <a href="#"><i class="fa fa-facebook"></i></a>
+                    </li>
+                    <li>
+                      <a href="#"><i class="fa fa-twitter"></i></a>
+                    </li>
+                    <li>
+                      <a href="#"><i class="fa fa-google-plus"></i></a>
+                    </li>
+                    <li>
+                      <a href="#"><i class="fa fa-instagram"></i></a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-sm-3">
+                <div class="footer_2">
+                  <h3>Services</h3>
+                  <ul>
+                    <li>
+                      Field Analysis
+                    </li>
+                    <li>
+                      Plant Disease
+                    </li>
+                    <li>
+                      Weather Forecast
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section onclick="move()" id="footer_main" class="clearfix">
+      <div class="col-sm-12">
+        <div class="footer_main_1">
+          <p>© 2022 Agro Vision</a></p>
+        </div>
+      </div>
+    </section>
+  </div>
+  <div class="loading"
+    style="display: none;margin-left:10%;margin-right: 10%;margin-top: auto;margin-bottom: auto;font-family:sans-serif;color: #7DCE13;margin-top: 12rem;">
+    <h1>processing ...</h1><br><span style="font-size: 3rem;" id="pvalue">0</span><span style="font-size: 3rem;">%</span>
+    <div id="myProgress">
+      <div id="myBar"></div>
+    </div>
+  </div>
+  <!-- Added by me -->
+  <script>
+    // When the user scrolls down 20px from the top of the document, slide down the navbar
+    window.onscroll = function() {scrollFunction()};
+    
+    function scrollFunction() {
+      if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+        document.getElementById("navbar").style.top = "0";
+      } else {
+        document.getElementById("navbar").style.top = "-50px";
+      }
+    }
+    </script>
+  <script>
+    var x, i, j, l, ll, selElmnt, a, b, c;
+    /*look for any elements with the class "custom-select":*/
+    x = document.getElementsByClassName("custom-select");
+    l = x.length;
+    for (i = 0; i < l; i++) {
+      selElmnt = x[i].getElementsByTagName("select")[0];
+      ll = selElmnt.length;
+      /*for each element, create a new DIV that will act as the selected item:*/
+      a = document.createElement("DIV");
+      a.setAttribute("class", "select-selected");
+      a.innerHTML = selElmnt.options[selElmnt.selectedIndex].innerHTML;
+      x[i].appendChild(a);
+      /*for each element, create a new DIV that will contain the option list:*/
+      b = document.createElement("DIV");
+      b.setAttribute("class", "select-items select-hide");
+      for (j = 1; j < ll; j++) {
+        /*for each option in the original select element,
+        create a new DIV that will act as an option item:*/
+        c = document.createElement("DIV");
+        c.innerHTML = selElmnt.options[j].innerHTML;
+        c.addEventListener("click", function (e) {
+          /*when an item is clicked, update the original select box,
+          and the selected item:*/
+          var y, i, k, s, h, sl, yl;
+          s = this.parentNode.parentNode.getElementsByTagName("select")[0];
+          sl = s.length;
+          h = this.parentNode.previousSibling;
+          for (i = 0; i < sl; i++) {
+            if (s.options[i].innerHTML == this.innerHTML) {
+              s.selectedIndex = i;
+              h.innerHTML = this.innerHTML;
+              y = this.parentNode.getElementsByClassName("same-as-selected");
+              yl = y.length;
+              for (k = 0; k < yl; k++) {
+                y[k].removeAttribute("class");
+              }
+              this.setAttribute("class", "same-as-selected");
+              break;
+            }
+          }
+          h.click();
+        });
+        b.appendChild(c);
+      }
+      x[i].appendChild(b);
+      a.addEventListener("click", function (e) {
+        /*when the select box is clicked, close any other select boxes,
+        and open/close the current select box:*/
+        e.stopPropagation();
+        closeAllSelect(this);
+        this.nextSibling.classList.toggle("select-hide");
+        this.classList.toggle("select-arrow-active");
+      });
+    }
+    function closeAllSelect(elmnt) {
+      /*a function that will close all select boxes in the document,
+      except the current select box:*/
+      var x, y, i, xl, yl, arrNo = [];
+      x = document.getElementsByClassName("select-items");
+      y = document.getElementsByClassName("select-selected");
+      xl = x.length;
+      yl = y.length;
+      for (i = 0; i < yl; i++) {
+        if (elmnt == y[i]) {
+          arrNo.push(i)
+        } else {
+          y[i].classList.remove("select-arrow-active");
+        }
+      }
+      for (i = 0; i < xl; i++) {
+        if (arrNo.indexOf(i)) {
+          x[i].classList.add("select-hide");
+        }
+      }
+    }
+    /*if the user clicks anywhere outside the select box,
+    then close all select boxes:*/
+    document.addEventListener("click", closeAllSelect);
+  </script>
+  <script>
+    $(document).ready(function () {
+      /*****Fixed Menu******/
+      var secondaryNav = $('.cd-secondary-nav'),
+        secondaryNavTopPosition = secondaryNav.offset().top;
+      $(window).on('scroll', function () {
+        if ($(window).scrollTop() > secondaryNavTopPosition) {
+          secondaryNav.addClass('is-fixed');
+        } else {
+          secondaryNav.removeClass('is-fixed');
+        }
+      });
+    });
+  </script>
+  <script type="text/javascript">
+    $(document).ready(function () {
+      $('#Carousel').carousel({
+        interval: 5000
+      })
+    });
+  </script>
+  <script type="text/javascript">
+    $(document).ready(function () {
+      $('#Carousel').carousel({
+        interval: 5000
+      })
+    });
+  </script>
+  <script type="text/javascript">
+    $(document).on('click', '.panel-heading span.clickable', function (e) {
+      var $this = $(this);
+      if (!$this.hasClass('panel-collapsed')) {
+        $this.parents('.panel').find('.panel-body').slideUp();
+        $this.addClass('panel-collapsed');
+        $this.find('i').removeClass('glyphicon-minus').addClass('glyphicon-plus');
+      } else {
+        $this.parents('.panel').find('.panel-body').slideDown();
+        $this.removeClass('panel-collapsed');
+        $this.find('i').removeClass('glyphicon-plus').addClass('glyphicon-minus');
+      }
+    });
+    $(document).on('click', '.panel div.clickable', function (e) {
+      var $this = $(this);
+      if (!$this.hasClass('panel-collapsed')) {
+        $this.parents('.panel').find('.panel-body').slideUp();
+        $this.addClass('panel-collapsed');
+        $this.find('i').removeClass('glyphicon-minus').addClass('glyphicon-plus');
+      } else {
+        $this.parents('.panel').find('.panel-body').slideDown();
+        $this.removeClass('panel-collapsed');
+        $this.find('i').removeClass('glyphicon-plus').addClass('glyphicon-minus');
+      }
+    });
+    $(document).ready(function () {
+      $('.panel-heading span.clickable').click();
+      $('.panel div.clickable').click();
+    });
+
+  </script>
+  <p id="ele1" style="display: none;">{{index}}</p>
+  <p id="ele2" style="display: none;">{{viewdate}}</p>
+  <script>
+    var dtToday = new Date();
+
+    var month = dtToday.getMonth() + 1;
+    var day = dtToday.getDate();
+    var year = dtToday.getFullYear();
+
+    if (month < 10)
+      month = '0' + month.toString();
+    if (day < 10)
+      day = '0' + day.toString();
+
+    var maxDate = year + '-' + month + '-' + day;
+    document.getElementById('dateinput').valueAsDate = +document.getElementById('ele2').innerHTML;
+    // document.getElementById("dateinput").ariaValueMax = maxDate;
+
+    ele1 = document.getElementById("ele1");
+    var elements = document.getElementById("select").options;
+
+    for(var i = 0; i < elements.length; i++){
+      elements[i].selected = false;
+      if(elements[i].innerHTML == ele1.innerHTML)
+      {
+        elements[i].selected = true;
+      }
+    }
+
+  </script>
+  <script>
+    var main = document.querySelector(".main");
+    var loading = document.querySelector(".loading");
+    var pvalue = document.querySelector("#pvalue");
+    var i = 0;
+    function move() {
+      main.style.display = "none";
+      loading.style.display = "block";
+      if (i == 0) {
+        i = 1;
+        var elem = document.getElementById("myBar");
+        var width = 1;
+        var id = setInterval(frame, 500);
+        function frame() {
+          if (width >= 100) {
+            clearInterval(id);
+            i = 0;
+          } else {
+            width++;
+            elem.style.width = width + "%";
+            pvalue.innerHTML = width;
+            if(width=="100")
+            {
+              main.style.display = "block";
+              loading.style.display = "none"
+            }
+          }
+        }
+      }
+    }
+  </script>
+</body>

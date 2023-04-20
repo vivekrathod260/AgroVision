@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Add New Field | Agrovision</title>
+
+  <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/static/css/global.css" rel="stylesheet">
+  <link href="/static/css/shop-details.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="/static/css/font-awesome.min.css" />
+  <link href="https://fonts.googleapis.com/css?family=Philosopher" rel="stylesheet">
+  <script src="/static/js/jquery-2.1.1.min.js"></script>
+  <script src="/static/js/bootstrap.min.js"></script>
+
+  <!-- All in One SEO 4.2.4 - aioseo.com -->
+  <meta name="description"
+    content="AgroVision is a cloud-based platform which provide satellite data to help you analyze fields and observe plant health it also help you to detect plant disease and guide you to cure it" />
+  <meta name="keywords"
+    content="remote sensing project,NDVI,NDMI,index,Plant disease detect,Plant disease, image processing project">
+  <meta name="DC.keywords"
+    content="remote sensing project,NDVI,NDMI,index,Plant disease detect,Plant disease, image processing project">
+  <meta name="robots" content="max-image-preview:large" />
+  <link rel="canonical" href="https://eos.com/" />
+  <meta name="generator" content="All in One SEO (AIOSEO) 4.2.4 " />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:site_name" content="AGROVISION" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Satellite Imagery, Field Analysis, Plant Disease Detection" />
+  <meta property="og:description"
+    content="AgroVision is a cloud-based platform which provide satellite data to help you analyze fields and observe plant health it also help you to detect plant disease and guide you to cure it" />
+  <meta property="og:url" content="https://eos.com/" />
+  <meta property="og:image" content="https://static.eos.com/wp-content/uploads/2021/05/1640х856.png" />
+  <meta property="og:image:secure_url" content="https://static.eos.com/wp-content/uploads/2021/05/1640х856.png" />
+  <meta property="article:published_time" content="2020-10-21T11:43:24+00:00" />
+  <meta property="article:modified_time" content="2022-11-15T10:30:49+00:00" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Geospatial Data Analytics, GIS Software, Satellite Imagery In EOS" />
+  <meta name="twitter:description"
+    content="EOSDA is a cloud-based platform to derive geospatial data and analyze satellite imagery for business and science purposes." />
+  <meta name="twitter:image" content="https://static.eos.com/wp-content/uploads/2021/05/900x900.png" />
+  <!-- All in One SEO -->
+  <style>
+    .tooltip {
+      position: relative;
+      display: inline-block;
+      border-bottom: 1px dotted black;
+    }
+
+    .tooltip .tooltiptext {
+      visibility: hidden;
+      width: 120px;
+      background-color: black;
+      color: #fff;
+      text-align: center;
+      border-radius: 6px;
+      padding: 5px 0;
+
+      /* Position the tooltip */
+      position: absolute;
+      z-index: 1;
+    }
+
+    .tooltip:hover .tooltiptext {
+      visibility: visible;
+    }
+
+    .dropbtn {
+      background-color: #04AA6D;
+      color: white;
+      padding: 16px;
+      font-size: 16px;
+      border: none;
+    }
+
+    .dropdown {
+      position: relative;
+      display: inline-block;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #ffffff;
+      min-width: 160px;
+      box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+      z-index: 1;
+    }
+
+    .dropdown-content a {
+      color: black;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+    }
+
+    .dropdown-content a:hover {
+      background-color: #ddd;
+    }
+
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+
+    .dropdown:hover .dropbtn {
+      background-color: #3e8e41;
+    }
+
+    .mapdiv {
+      /* margin: 4rem; */
+      margin: 3rem 0.7rem;
+
+    }
+
+    /* ADDED by me */
+    /* for date input  */
+    div.product_details_6 {
+      box-shadow: 1px 1px 30px 9px #b8b8b8;
+    }
+
+    *,
+    *:before,
+    *:after {
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+    }
+
+    input[type="date"] {
+      background-color: #7DCE13;
+      padding: 3px;
+      /* position: relative; */
+      /* transform: translate(-50%,-50%); */
+      /* top: 50%; */
+      /* left: 10%; */
+      font-family: "Roboto Mono", monospace;
+      color: #ffffff;
+      font-size: 18px;
+      border: none;
+      outline: none;
+      border-radius: 5px;
+      display: inline-block;
+    }
+
+    ::-webkit-calendar-picker-indicator {
+      background-color: #ffffff;
+      padding: 5px;
+      cursor: pointer;
+      border-radius: 3px;
+    }
+
+    /* for select element  */
+    /*the container must be positioned relative:*/
+    .custom-select {
+      position: relative;
+      font-family: Arial;
+    }
+
+    .custom-select select {
+      display: none;
+      /*hide original SELECT element:*/
+    }
+
+    .select-selected {
+      background-color: #7DCE13;
+    }
+
+    /*style the arrow inside the select element:*/
+    .select-selected:after {
+      position: absolute;
+      content: "";
+      top: 14px;
+      right: 10px;
+      width: 0;
+      height: 0;
+      border: 6px solid transparent;
+      border-color: #fff transparent transparent transparent;
+    }
+
+    /*point the arrow upwards when the select box is open (active):*/
+    .select-selected.select-arrow-active:after {
+      border-color: transparent transparent #fff transparent;
+      top: 7px;
+    }
+
+    /*style the items (options), including the selected item:*/
+    .select-items div,
+    .select-selected {
+      color: #ffffff;
+      padding: 8px 16px;
+      border: 1px solid transparent;
+      border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    /*style items (options):*/
+    .select-items {
+      position: absolute;
+      background-color: #7DCE13;
+      top: 100%;
+      left: 0;
+      right: 0;
+      z-index: 99;
+    }
+
+    /*hide the items when the select box is closed:*/
+    .select-hide {
+      display: none;
+    }
+
+    .select-items div:hover,
+    .same-as-selected {
+      background-color: rgba(0, 0, 0, 0.1);
+    }
+
+    /* for button */
+    .button111 {
+      display: inline-block;
+      padding: 15px 25px;
+      font-size: 24px;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+      outline: none;
+      color: #fff;
+      background-color: #7DCE13;
+      border: none;
+      border-radius: 15px;
+      box-shadow: 3px 6px 0px #d4d4d4;
+    }
+
+    .button111:hover {
+      background-color: #3e8e41
+    }
+
+    .button111:active {
+      background-color: #3e8e41;
+      box-shadow: 0 5px #666;
+      transform: translateY(4px);
+    }
+
+    /* for name */
+    .inputNames {
+      font-size: 4rem;
+      text-transform: capitalize;
+      text-shadow: 1px 1px 1px rgb(255, 255, 0), 2px 2px 1px rgb(255, 255, 0);
+      text-align: center;
+      display: inline-block;
+    }
+
+    .inputNames input {
+      margin-left: auto;
+      margin-right: 0;
+    }
+
+    .containerx,
+    .container-fluid,
+    .container-lg,
+    .container-md,
+    .container-sm,
+    .container-xl,
+    .container-xxl {
+      --bs-gutter-x: 1.5rem;
+      --bs-gutter-y: 0;
+      width: 100%;
+      padding-right: calc(var(--bs-gutter-x) * .5);
+      padding-left: calc(var(--bs-gutter-x) * .5);
+      margin-right: auto;
+      margin-left: auto;
+    }
+
+    .rowx {
+      --bs-gutter-x: 1.5rem;
+      --bs-gutter-y: 0;
+      display: flex;
+      flex-wrap: wrap;
+      margin-top: calc(-1 * var(--bs-gutter-y));
+      margin-right: calc(-.5 * var(--bs-gutter-x));
+      margin-left: calc(-.5 * var(--bs-gutter-x));
+    }
+
+    .colx {
+      flex: 1 0 0%;
+    }
+
+    /* input field name  */
+    .form-control {
+      display: block;
+      width: 100%;
+      padding: 0.375rem 0.75rem;
+      font-size: 1rem;
+      font-weight: 400;
+      line-height: 1.5;
+      color: #212529;
+      background-color: #d0f0a6;
+      background-clip: padding-box;
+      font-size: 2rem;
+      height: 4rem;
+
+
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      border-radius: 0.375rem;
+      transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+    }
+
+    /* for loading  */
+    #myProgress {
+      width: 100%;
+      background-color: #ddd;
+    }
+
+    #myBar {
+      width: 1%;
+      height: 30px;
+      background-color: #04AA6D;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="main">
+    <section id="header_main">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12 space_all">
+            <div class="col-sm-3 space_all">
+              <div class="header_main_1">
+                <a href="/"><i class="fa fa-tree"></i>AgroVision</a>
+              </div>
+            </div>
+            <div class="col-sm-9 space_all">
+              <div class="header_main_2 clearfix">
+                <div class="col-sm-4 space_all">
+                  <div class="header_main_3 clearfix">
+                    <div class="col-sm-2">
+                      <div class="header_main_4">
+                      </div>
+                    </div>
+                    <div class="col-sm-10">
+                      <div class="header_main_5">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-4 space_all">
+                  <div class="header_main_3 clearfix">
+                    <div class="col-sm-2">
+                      <div class="header_main_4">
+                      </div>
+                    </div>
+                    <div class="col-sm-10">
+                      <div class="header_main_5">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-4 space_all">
+                  <div class="header_main_3 clearfix">
+                    <div class="col-sm-2">
+                      <div class="header_main_4">
+                      </div>
+                    </div>
+                    <div class="col-sm-10">
+                      <div class="header_main_5">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="header" class="cd-secondary-nav" class="clearfix">
+      <nav class="navbar navbar-default" role="navigation">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse"
+              data-target="#dropdown-thumbnail-preview">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="index.html"><i class="fa fa-tree"></i>AgroVision</a>
+          </div>
+          <div class="collapse navbar-collapse" id="dropdown-thumbnail-preview">
+            <ul class="nav navbar-nav">
+              <li><a href="/">Home</a></li>
+              <li class="active"><a href="/services/">Services</a></li>
+              <li><a href="/contact/">Contact</a></li>
+              <li style="padding-left: 450px;"><a href="#">{{fullName}}</a></li>
+              <li><button type="button" class="btn btn-success" style="margin-top: 10px;background-color: #398800"><a
+                    href="/logout/" style="color:#ffffff">LOG OUT</a></button></li>
+              <li style="float: right; top: -50px; right: 0;">
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </section>
+    <section id="shop_details_main">
+      <div class="shop_details_main_3 clearfix">
+      </div>
+    </section>
+
+    <div class="containerx">
+      <div class="row">
+        <div class="col-lg-6 col-md-6 mapdiv">
+          <div id="map-canvas" style="height: 50rem; width: 100%"></div>
+        </div>
+        <div class="col-lg-5" style="padding: 3rem 4rem;">
+          <form action="/addNewField/" method="post">
+            {% csrf_token %}
+            <div class="containerx">
+              <div class="rowx" style="margin-bottom: 3rem;">
+                <div class="colx">
+                  <label class="fieldName inputNames">FIELD NAME</label>
+                </div>
+                <div class="colx" style="padding: 0.8rem 0;margin-top: auto;margin-bottom: auto;">
+                  <input class="form-control border: inset;box-shadow:3px 1px 10px 9px #b8b8b8;" type="text"
+                    name="fieldName">
+                </div>
+              </div>
+              <div class="rowx" style="margin-bottom: 3rem;">
+                <div class="colx">
+                  <label class="dateinput inputNames">SOWING DATE</label>
+                </div>
+                <div class="colx" style="padding: 0.8rem 0;margin-top: auto;margin-bottom: auto;">
+                  <input style="box-shadow:3px 1px 10px 9px #b8b8b8;border: inset;" type="date" id="dateinput"
+                    name="sowingDate" min="2015-01-01">
+                </div>
+              </div>
+              <div class="rowx">
+                <div class="colx">
+                  <label class="inputNames">CROP TYPE</label>
+                </div>
+                <div class="colx" style="padding: 0.8rem 0;margin-top: auto;margin-bottom: auto;">
+                  <!-- <div style="box-shadow:3px 1px 10px 9px #b8b8b8;border: inset;width:144px;border-radius: 5px;"> -->
+                  <select name="cropType"
+                    style="box-shadow:3px 1px 10px 9px #b8b8b8;border: inset;height: 4.5rem;width: 16.3rem; border-radius: 0.5rem;background-color: #7DCE13;color: #fff;">
+                    <option value="Almonds" selected>Almonds</option>
+                    <option value="Alfalfa">Alfalfa</option>
+                    <option value="Apple">Apple</option>
+                    <option value="Bananas">Bananas</option>
+                    <option value="Beans">Beans</option>
+                    <option value="Buckwheat">Buckwheat</option>
+                    <option value="Cassava">Cassava</option>
+                    <option value="Cotton">Cotton</option>
+                    <option value="Cherry">Cherry</option>
+                    <option value="Flax">Flax</option>
+                    <option value="Fruit">Fruit</option>
+                    <option value="Ginger">Ginger</option>
+                    <option value="Grapes">Grapes</option>
+                    <option value="Gum arabic">Gum arabic</option>
+                    <option value="Kola nut">Kola nut</option>
+                    <option value="Milk thistle">Milk thistle</option>
+                    <option value="Millet">Millet</option>
+                    <option value="Mixed cereals">Mixed cereals</option>
+                    <option value="Oats">Oats</option>
+                    <option value="Oil palm">Oil palm</option>
+                    <option value="Oilseed Crops">Oilseed Crops</option>
+                    <option value="Olive tree">Olive tree</option>
+                    <option value="Other">Other</option>
+                    <option value="Pasture">Pasture</option>
+                    <option value="Peanuts">Peanuts</option>
+                    <option value="Peas">Peas</option>
+                    <option value="Plantain">Plantain</option>
+                    <option value="Poppy seed">Poppy seed</option>
+                    <option value="Potatoes">Potatoes</option>
+                    <option value="Pulses">Pulses</option>
+                    <option value="Rapeseed">Rapeseed</option>
+                    <option value="Rice">Rice</option>
+                    <option value="Rubber">Rubber</option>
+                    <option value="Rye">Rye</option>
+                    <option value="Sorghum">Sorghum</option>
+                    <option value="Soybeans">Soybeans</option>
+                    <option value="Spice">Spice</option>
+                    <option value="Spring Barley">Spring Barley</option>
+                    <option value="Spring Cereals">Spring Cereals</option>
+                    <option value="Spring Rapeseed">Spring Rapeseed</option>
+                    <option value="Sugar Beet">Sugar Beet</option>
+                    <option value="Sugarcane">Sugarcane</option>
+                    <option value="Summer fallow">Summer fallow</option>
+                    <option value="Sunflower">Sunflower</option>
+                    <option value="Tobacco">Tobacco</option>
+                    <option value="Tuber crops">Tuber crops</option>
+                    <option value="Turmeric">Turmeric</option>
+                    <option value="Vegetables">Vegetables</option>
+                    <option value="Winter Barley">Winter Barley</option>
+                    <option value="Winter Cereals">Winter Cereals</option>
+                    <option value="Winter Rapeseed">Winter Rapeseed</option>
+                    <option value="Winter Sorghum">Winter Sorghum</option>
+                    <option value="Winter Wheat">Winter Wheat</option>
+                    <option value="Wheat">Wheat</option>
+                    <option value="Yams">Yams</option>
+                  </select>
+                  <!-- </div> -->
+                </div>
+              </div>
+              <input type="hidden" name="coordinates" id="target">
+              <div class="rowx">
+                <div style="margin-bottom: 3rem;margin-top: 8rem;" class="colx">
+                  <button style="width: 100%;margin-top: 6rem;" class="button111" type="submit"
+                    onclick="move()">ADD</button>
+                </div>
+              </div>
+          </form>
+        </div>
+      </div>
+
+    </div>
+
+
+
+    <section id="footer">
+      <div class="footer_inner clearfix">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="col-sm-3">
+                <div class="footer_1">
+                  <h3 style="margin-top: 80px;" onclick="move()"><i class="fa fa-tree"></i> AgroVision</h3>
+                </div>
+              </div>
+              <div class="col-sm-3">
+                <div class="footer_2">
+                  <h3>CONTACT-US</h3>
+                  <ul>
+                    <li>
+                      <i class="fa fa-map-marker"></i> Walchand College of
+                      Engineering, Sangli - Miraj, Vishrambag, Sangli, MH-416415
+                    </li>
+                    <li><i class="fa fa-phone"></i> Phone: +1 (2) 345 6789</li>
+                    <li>
+                      <i class="fa fa-envelope"></i>
+                      <a href="#">akashmisal@gmail.com</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-sm-3">
+                <div class="footer_3">
+                  <!-- <h3>SEMPER PORTA</h3> -->
+                  <ul style="margin-top: 77px;">
+                    <li>
+                      <a href=""><i class="fa fa-facebook"></i></a>
+                    </li>
+                    <li>
+                      <a href=""><i class="fa fa-twitter"></i></a>
+                    </li>
+                    <li>
+                      <a href=""><i class="fa fa-google-plus"></i></a>
+                    </li>
+                    <li>
+                      <a href=""><i class="fa fa-instagram"></i></a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-sm-3">
+                <div class="footer_2">
+                  <h3>Services</h3>
+                  <ul>
+                    <li>
+                      Field Analysis
+                    </li>
+                    <li>
+                      Plant Disease
+                    </li>
+                    <li>
+                      Weather Forecast
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="footer_main" class="clearfix">
+      <div class="col-sm-12">
+        <div class="footer_main_1">
+          <p>© 2022 Agro Vision</a></p>
+        </div>
+      </div>
+    </section>
+  </div>
+  <div class="loading"
+    style="display: none;margin-left:10%;margin-right: 10%;margin-top: auto;margin-bottom: auto;font-family:sans-serif;color: #7DCE13;margin-top: 12rem;">
+    <h1>processing ...</h1><br><span style="font-size: 3rem;" id="pvalue">1</span><span style="font-size: 3rem;">%</span>
+    <div id="myProgress">
+      <div id="myBar"></div>
+    </div>
+  </div>
+  <script type="text/javascript"
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC8s5oSXTAtVKlJy6l-SR2XXZAb9yl7wNU&libraries=drawing"></script>
+  <script type="text/javascript" src="/static/js/drawmap.js"></script>
+  <script>
+    $(document).ready(function () {
+      /*****Fixed Menu******/
+      var secondaryNav = $('.cd-secondary-nav'),
+        secondaryNavTopPosition = secondaryNav.offset().top;
+      $(window).on('scroll', function () {
+        if ($(window).scrollTop() > secondaryNavTopPosition) {
+          secondaryNav.addClass('is-fixed');
+        } else {
+          secondaryNav.removeClass('is-fixed');
+        }
+      });
+    });
+    // document.querySelector(".form-control").style.border = '2px solid #7DCE13';
+  </script>
+  <script type="text/javascript">
+    $(document).ready(function () {
+      $('#Carousel').carousel({
+        interval: 5000
+      })
+    });
+  </script>
+  <script type="text/javascript">
+    $(document).ready(function () {
+      $('#Carousel').carousel({
+        interval: 5000
+      })
+    });
+  </script>
+  <script type="text/javascript">
+    $(document).on('click', '.panel-heading span.clickable', function (e) {
+      var $this = $(this);
+      if (!$this.hasClass('panel-collapsed')) {
+        $this.parents('.panel').find('.panel-body').slideUp();
+        $this.addClass('panel-collapsed');
+        $this.find('i').removeClass('glyphicon-minus').addClass('glyphicon-plus');
+      } else {
+        $this.parents('.panel').find('.panel-body').slideDown();
+        $this.removeClass('panel-collapsed');
+        $this.find('i').removeClass('glyphicon-plus').addClass('glyphicon-minus');
+      }
+    });
+    $(document).on('click', '.panel div.clickable', function (e) {
+      var $this = $(this);
+      if (!$this.hasClass('panel-collapsed')) {
+        $this.parents('.panel').find('.panel-body').slideUp();
+        $this.addClass('panel-collapsed');
+        $this.find('i').removeClass('glyphicon-minus').addClass('glyphicon-plus');
+      } else {
+        $this.parents('.panel').find('.panel-body').slideDown();
+        $this.removeClass('panel-collapsed');
+        $this.find('i').removeClass('glyphicon-plus').addClass('glyphicon-minus');
+      }
+    });
+    $(document).ready(function () {
+      $('.panel-heading span.clickable').click();
+      $('.panel div.clickable').click();
+    });
+
+    var dtToday = new Date();
+
+    var month = dtToday.getMonth() + 1;
+    var day = dtToday.getDate();
+    var year = dtToday.getFullYear();
+
+    if (month < 10)
+      month = '0' + month.toString();
+    if (day < 10)
+      day = '0' + day.toString();
+
+    var maxDate = year + '-' + month + '-' + day;
+    document.getElementById("dateinput").ariaValueMax = maxDate
+
+  </script>
+    <script>
+      var main = document.querySelector(".main");
+      var loading = document.querySelector(".loading");
+      var pvalue = document.querySelector("#pvalue");
+      var i = 0;
+      function move() {
+        main.style.display = "none";
+        loading.style.display = "block";
+        if (i == 0) {
+          i = 1;
+          var elem = document.getElementById("myBar");
+          var width = 1;
+          var id = setInterval(frame, 500);
+          function frame() {
+            if (width >= 100) {
+              clearInterval(id);
+              i = 0;
+            } else {
+              width++;
+              elem.style.width = width + "%";
+              pvalue.innerHTML = width;
+            }
+          }
+        }
+      }
+    </script>
+</body>
