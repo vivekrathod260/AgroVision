@@ -9,5 +9,5 @@ class HomeConfig(AppConfig):
 
     def ready(self):
         scheduler = BackgroundScheduler()
-        scheduler.add_job(SendWeatherForcast, 'cron', minute='*/1')
+        scheduler.add_job(SendWeatherForcast, 'cron', hour=0, minute=0)
         scheduler.start()

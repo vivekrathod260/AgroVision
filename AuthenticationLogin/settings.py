@@ -29,12 +29,12 @@ SECRET_KEY = 'django-insecure-4buh_#)hk-u)c7@lxa!n*#pp3gj#)=s3##fe!b21%af@o3e$us
 
 try:
     HOSTNAME = socket.gethostname()
-    DEBUG = False
+    # DEBUG = False
 except:
     HOSTNAME = 'localhost'
-    DEBUG = True
+    # DEBUG = True
 
-
+DEBUG = True
 
 ALLOWED_HOSTS = ['*','127.0.0.1','agrovision.herokuapp.com', 'https://agrovision.onrender.com']
 
