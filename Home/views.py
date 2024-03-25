@@ -36,6 +36,7 @@ import tensorflow
 from tensorflow.keras.models import load_model
 from keras_preprocessing.image import img_to_array, load_img
 from keras.applications.vgg19 import preprocess_input
+from django.conf import settings
 ####################################################################
 
 
@@ -49,7 +50,8 @@ def send_mail_after_registration(email,auth_token):
     htmly     = get_template('verificationMail.html')
 
     d = {
-        'auth_token': auth_token
+        'auth_token': auth_token,
+        'hostname' : settings.HOSTNAME
     }
     
     text_content = plaintext.render(d)

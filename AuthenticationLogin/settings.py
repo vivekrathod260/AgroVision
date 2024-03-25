@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 from pathlib import Path
 import os
 from django.contrib.messages import constants as messages
+import socket
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,9 +26,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-4buh_#)hk-u)c7@lxa!n*#pp3gj#)=s3##fe!b21%af@o3e$us'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1','agrovision.herokuapp.com']
+try:
+    HOSTNAME = socket.gethostname()
+    DEBUG = False
+except:
+    HOSTNAME = 'localhost'
+    DEBUG = True
+
+
+
+ALLOWED_HOSTS = ['*','127.0.0.1','agrovision.herokuapp.com', 'https://agrovision.onrender.com']
 
 
 LOGIN_URL = '/login'
