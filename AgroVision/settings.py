@@ -27,12 +27,6 @@ SECRET_KEY = 'django-insecure-4buh_#)hk-u)c7@lxa!n*#pp3gj#)=s3##fe!b21%af@o3e$us
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
-try:
-    HOSTNAME = socket.gethostname()
-    # DEBUG = False
-except:
-    HOSTNAME = 'localhost'
-    # DEBUG = True
 
 DEBUG = True
 
@@ -46,9 +40,12 @@ from boto.s3.connection import S3Connection
 
 if(str(os.getenv('api_key'))==""):
     API_KEY = str(S3Connection(os.environ['api_key']))
+    HOSTNAME = os.getenv('SERVER')
 else:
     API_KEY = str(os.getenv('api_key'))
+    HOSTNAME = 'localhost'
 
+AWAKE = os.getenv('AWAKE')
 
 # Application definition
 
